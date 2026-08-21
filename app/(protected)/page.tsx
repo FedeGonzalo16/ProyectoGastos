@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRepositories } from "@/hooks/useRepositories";
 import { currentYearMonth, formatYearMonthShort, lastNMonths } from "@/lib/dateRange";
@@ -53,8 +54,20 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-5 px-5 pt-6 pb-4">
-      <header>
+      <header className="flex items-center justify-between">
         <h1 className="font-heading text-xl font-semibold">Resumen</h1>
+        {/* Único acceso directo a Configuración (tema, gastos fijos) — no está en la barra de abajo a propósito, para no ocupar un 5º ícono. */}
+        <Link href="/configuracion" aria-label="Configuración" style={{ color: "var(--color-text-secondary)" }}>
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.7" />
+            <path
+              d="M19.4 13.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V19.5a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H4.5a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H10.6a1.7 1.7 0 0 0 1.03-1.56V4.5a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V10.6a1.7 1.7 0 0 0 1.56 1.03h.14a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.56 1.03Z"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
       </header>
 
       <div className="grid grid-cols-3 gap-2">

@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/providers/AuthProvider";
 import { useRepositories } from "@/hooks/useRepositories";
 import { FixedExpenseForm } from "@/components/configuracion/FixedExpenseForm";
 import { FixedExpenseListItem } from "@/components/configuracion/FixedExpenseListItem";
@@ -14,9 +16,16 @@ import type { FixedExpense } from "@/lib/types";
  * administrarlas a mano queda para un paso futuro si hace falta.
  */
 export default function ConfiguracionPage() {
+  const { supabase } = useAuth();
+  const router = useRouter();
   const { categories, fixedExpenses } = useRepositories();
   const [refreshKey, setRefreshKey] = useState(0);
   const [editingTemplate, setEditingTemplate] = useState<FixedExpense | null>(null);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    router.replace("/login");
+  }
 
   const expenseCategories = useMemo(
     () => categories.list().filter((category) => category.kind === "gasto"),
@@ -89,6 +98,15 @@ export default function ConfiguracionPage() {
           ))
         )}
       </section>
+
+      <button
+        type="button"
+        onClick={handleSignOut}
+        className="rounded-2xl border py-3 text-sm font-semibold"
+        style={{ borderColor: "var(--color-border)", color: "var(--chart-8)" }}
+      >
+        Cerrar sesión
+      </button>
     </div>
   );
 }
