@@ -57,7 +57,7 @@ export default function DashboardPage() {
         <h1 className="font-heading text-xl font-semibold">Resumen</h1>
       </header>
 
-      <div className="flex gap-2.5 overflow-x-auto pb-1">
+      <div className="grid grid-cols-3 gap-2">
         <StatCard
           label="Balance del mes"
           value={formatArs(balanceThisMonth)}
