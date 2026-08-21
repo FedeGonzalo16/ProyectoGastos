@@ -177,7 +177,7 @@ export default function MensualPage() {
             ))
           )}
         </div>
-        <Link href="/configuracion" className="mt-2 inline-block text-[11px] font-semibold" style={{ color: "var(--color-brand)" }}>
+        <Link href="/gastos-fijos" className="mt-2 inline-block text-[11px] font-semibold" style={{ color: "var(--color-brand)" }}>
           Gestionar gastos fijos →
         </Link>
 

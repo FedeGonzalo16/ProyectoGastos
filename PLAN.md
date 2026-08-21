@@ -85,9 +85,11 @@ generados, se insertan en `expenses` una fila por cada `fixed_expenses.active`, 
 `is_fixed=true` y el monto estimado (editable después, ese registro puntual no afecta
 la plantilla).
 
-**Gastos fijos, CRUD completo**: desde `/configuracion` se pueden crear nuevas
-plantillas en cualquier momento, editar el monto/categoría/día de una existente, y
-desactivarla (soft delete, para no perder el histórico de `expenses` ya generado). Un
+**Gastos fijos, CRUD completo**: desde `/gastos-fijos` (linkeado desde Mensual — no
+vive en Configuración, porque es parte del flujo de Mensual, no un ajuste general de
+la app) se pueden crear nuevas plantillas en cualquier momento, editar el
+monto/categoría/día de una existente, y desactivarla (soft delete, para no perder el
+histórico de `expenses` ya generado). Un
 cambio de monto en la plantilla solo afecta los meses futuros que se generen a partir
 de ahí — los meses ya generados quedan con el monto que tenían (se pueden editar
 manualmente ese mes puntual desde `/gastos` si hace falta corregir algo retroactivo).
@@ -132,8 +134,11 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
   monto, moneda, tipo de cambio), tabla de totales por activo (agrupado por
   asset_name) + total general en USD, torta por tipo de activo, línea de evolución de
   rendimiento %, filtrable por período
-- `/configuracion` — categorías (de gasto e ingreso) y **CRUD de plantillas de gastos
-  fijos** (alta, edición de monto/categoría/día, desactivar)
+- `/gastos-fijos` (linkeado desde Mensual) — **CRUD de plantillas de gastos fijos**
+  (alta, edición de monto/categoría/día, desactivar)
+- `/configuracion` — ajustes generales de la app: apariencia (claro/oscuro/sistema) y
+  cerrar sesión; no administra gastos fijos ni categorías, esos son parte del flujo de
+  cada módulo, no un ajuste general
 
 ## Pasos de implementación
 
@@ -150,8 +155,9 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
 6. ✅ Módulo Mensual (`app/(protected)/mensual`): auto-generación de gastos fijos al
    entrar al mes, alta de ingresos categorizados, desglose fijos/variables, balance,
    tortas de gastos/ingresos por categoría, comparativa contra meses anteriores.
-   Incluye `app/(protected)/configuracion` (CRUD de plantillas de gastos fijos: alta,
-   editar monto/categoría/día, activar/desactivar).
+   Incluye `app/(protected)/gastos-fijos` (CRUD de plantillas: alta, editar
+   monto/categoría/día, activar/desactivar) — `/configuracion` quedó separado, es solo
+   apariencia (claro/oscuro/sistema) y cerrar sesión.
 7. ✅ Módulo Inversiones (`app/(protected)/inversiones`): alta de posición (tipo +
    nombre/ticker libre, moneda, tipo de cambio → conversión a USD), distribución por
    tipo de activo, evolución del rendimiento promedio de la cartera, detalle de
