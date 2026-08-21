@@ -11,6 +11,13 @@
  * abajo ya contemplan ambos casos.
  */
 :root {
+  /* Le avisa al navegador que soportamos los dos esquemas, para que dibuje
+     los controles nativos (selects, date picker, flechitas de <input
+     type="number">) acorde en vez de asumir siempre claro — sin esto,
+     el popup de un <select> o el date picker salían blancos aunque el resto
+     de la app estuviera en modo oscuro. */
+  color-scheme: light dark;
+
   --color-bg: #f9f9f7;
   --color-card: #ffffff;
   --color-text: #0b0b0b;
@@ -57,6 +64,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --color-bg: #0d0d0d;
   --color-card: #1a1a19;
   --color-text: #ffffff;
