@@ -38,6 +38,10 @@ Decisiones ya confirmadas con el usuario:
   tiene que poder agregar nuevas plantillas de gasto fijo en cualquier momento, y
   editar/actualizar el monto (o categoría, día) de una plantilla existente cuando
   cambia — sin perder el histórico de lo ya generado en meses anteriores.
+- **Funciona sin conexión**: si no hay internet, la app tiene que seguir funcionando
+  contra una copia local (localStorage) y sincronizar con Supabase apenas vuelve la
+  conexión, en ambos sentidos (subir lo cargado offline, bajar lo que cambió en otro
+  dispositivo).
 
 Proyecto está vacío (carpeta nueva, sin git). Se crea todo desde cero.
 
@@ -88,6 +92,30 @@ cambio de monto en la plantilla solo afecta los meses futuros que se generen a p
 de ahí — los meses ya generados quedan con el monto que tenían (se pueden editar
 manualmente ese mes puntual desde `/gastos` si hace falta corregir algo retroactivo).
 
+## Modo offline / sincronización
+
+La app tiene que poder cargarse y leerse sin conexión, y ponerse al día sola cuando
+vuelve el internet. Se implementa como una capa propia entre los componentes y
+Supabase (nunca los componentes hablan directo con Supabase ni con localStorage — así
+se puede cambiar la estrategia de guardado sin tocar las pantallas):
+
+- `lib/offline/localStore.ts` — wrapper tipado sobre `localStorage`: guarda una copia
+  local de cada tabla (gastos, ingresos, inversiones, plantillas fijas, categorías).
+  Es la fuente de verdad para pintar la UI al instante, haya o no conexión.
+- `lib/offline/syncQueue.ts` — cola de operaciones pendientes (crear/editar/borrar),
+  también persistida en localStorage para que sobreviva un refresh de la página.
+- `lib/offline/syncEngine.ts` — al detectar conexión (evento `online` del browser +
+  reintento periódico): 1) sube en orden lo que esté en la cola pendiente, 2) baja de
+  Supabase lo que haya cambiado y actualiza la copia local. Al perder conexión,
+  simplemente deja de intentar y la app sigue funcionando contra la copia local.
+- `lib/repository/*.ts` — un repositorio por entidad (ej. `expensesRepository.ts`) que
+  expone funciones simples (`list`, `create`, `update`, `remove`) y por dentro decide
+  si lee/escribe local, remoto, o ambos vía la cola — es la única puerta de entrada que
+  usan los componentes/hooks de cada pantalla.
+- **Resolución de conflictos simplificada**: al ser una app de un solo usuario, se
+  resuelve "el último cambio guardado gana" usando `updated_at`; no se implementa
+  fusión de conflictos más sofisticada (no hace falta para este caso de uso).
+
 ## Páginas (Next.js App Router)
 
 - `/login` — Supabase auth
@@ -110,20 +138,21 @@ manualmente ese mes puntual desde `/gastos` si hace falta corregir algo retroact
 ## Pasos de implementación
 
 0. ✅ **Diseño visual (mockups)** — hecho y aprobado (`design/gastos-app-mockups.html`).
-1. Scaffold: `create-next-app` (TS + Tailwind + App Router), init git, estructura de
-   carpetas (`app/`, `lib/supabase.ts`, `components/`).
-2. Archivo `supabase/schema.sql` con el modelo de datos completo + políticas RLS, listo
-   para que el usuario lo pegue en su proyecto Supabase.
+1. ✅ Scaffold: `create-next-app` (TS + Tailwind + App Router), init git.
+2. ✅ Archivo `supabase/schema.sql` con el modelo de datos completo + políticas RLS,
+   listo para pegar en el SQL Editor de Supabase.
 3. Cliente Supabase (`lib/supabase.ts`) + páginas de login/middleware de sesión.
-4. Módulo Gastos diarios: formulario + listado + CRUD contra `expenses`.
-5. Módulo Mensual: lógica de auto-generación de fijos, form de ingresos, agregaciones y
+4. Capa offline (`lib/offline/*`, `lib/repository/*`) — antes de las pantallas, porque
+   todas las pantallas la usan para leer/escribir datos.
+5. Módulo Gastos diarios: formulario + listado, usando el repositorio de gastos.
+6. Módulo Mensual: lógica de auto-generación de fijos, form de ingresos, agregaciones y
    gráficos.
-6. Módulo Inversiones: formulario con conversión de moneda, tabla de totales, historial
+7. Módulo Inversiones: formulario con conversión de moneda, tabla de totales, historial
    de valuación y gráficos.
-7. Dashboard home con los gráficos combinados.
-8. PWA: manifest + iconos + meta tags iOS.
-9. Instrucciones de deploy: variables de entorno en Vercel
-   (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
+8. Dashboard home con los gráficos combinados.
+9. PWA: manifest + iconos + meta tags iOS.
+10. Instrucciones de deploy: variables de entorno en Vercel
+    (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
 
 ## Verificación
 

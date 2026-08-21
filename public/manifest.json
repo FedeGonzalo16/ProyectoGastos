@@ -1,0 +1,12 @@
+{
+  "name": "gastos",
+  "short_name": "gastos",
+  "description": "Gastos diarios, resumen mensual e inversiones, todo en un solo lugar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9f9f7",
+  "theme_color": "#1baf7a",
+  "icons": [
+    { "src": "/icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}

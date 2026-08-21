@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
+/*
+ * Tokens de diseño de la app — los mismos valores usados y aprobados en los
+ * mockups de design/ (paleta sobria, validada con la skill de dataviz para
+ * que las categorías de los gráficos se distingan bien sin usar neón).
+ *
+ * Modo claro/oscuro: por defecto sigue la preferencia del sistema
+ * (prefers-color-scheme). Si más adelante se agrega un toggle manual, alcanza
+ * con poner data-theme="light" o data-theme="dark" en <html> — las reglas de
+ * abajo ya contemplan ambos casos.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --color-bg: #f9f9f7;
+  --color-card: #ffffff;
+  --color-text: #0b0b0b;
+  --color-text-secondary: #52514e;
+  --color-muted: #898781;
+  --color-border: rgba(11, 11, 11, 0.1);
+  --color-grid: #e1e0d9;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Paleta categórica fija (gráficos) — nunca se reordena entre pantallas. */
+  --chart-1: #2a78d6; /* azul */
+  --chart-2: #eb6834; /* naranja */
+  --chart-3: #1baf7a; /* aqua/verde — también el acento de marca */
+  --chart-4: #eda100; /* amarillo */
+  --chart-5: #e87ba4; /* magenta */
+  --chart-6: #008300; /* verde */
+  --chart-7: #4a3aa7; /* violeta */
+  --chart-8: #e34948; /* rojo */
+
+  --color-brand: var(--chart-3);
+  --color-brand-soft: rgba(27, 175, 122, 0.12);
+  --color-good: #006300;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --color-bg: #0d0d0d;
+    --color-card: #1a1a19;
+    --color-text: #ffffff;
+    --color-text-secondary: #c3c2b7;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-grid: #2c2c2a;
+
+    --chart-1: #3987e5;
+    --chart-2: #d95926;
+    --chart-3: #199e70;
+    --chart-4: #c98500;
+    --chart-5: #d55181;
+    --chart-7: #9085e9;
+    --chart-8: #e66767;
+
+    --color-brand-soft: rgba(25, 158, 112, 0.2);
+    --color-good: #0ca30c;
   }
 }
 
+:root[data-theme="dark"] {
+  --color-bg: #0d0d0d;
+  --color-card: #1a1a19;
+  --color-text: #ffffff;
+  --color-text-secondary: #c3c2b7;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-grid: #2c2c2a;
+
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-7: #9085e9;
+  --chart-8: #e66767;
+
+  --color-brand-soft: rgba(25, 158, 112, 0.2);
+  --color-good: #0ca30c;
+}
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
