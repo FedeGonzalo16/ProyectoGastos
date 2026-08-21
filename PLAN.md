@@ -152,11 +152,13 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
    tortas de gastos/ingresos por categoría, comparativa contra meses anteriores.
    Incluye `app/(protected)/configuracion` (CRUD de plantillas de gastos fijos: alta,
    editar monto/categoría/día, activar/desactivar).
-7. Módulo Inversiones: formulario con conversión de moneda, tabla de totales, historial
-   de valuación y gráficos. *(pendiente — página placeholder ya creada)*
+7. ✅ Módulo Inversiones (`app/(protected)/inversiones`): alta de posición (tipo +
+   nombre/ticker libre, moneda, tipo de cambio → conversión a USD), distribución por
+   tipo de activo, evolución del rendimiento promedio de la cartera, detalle de
+   posiciones con carga de % de rendimiento inline, y totales por nombre de activo.
 8. Dashboard home con los gráficos combinados. *(pendiente — página placeholder ya creada,
    ya existen los componentes de gráficos reutilizables — `components/charts/*` — que
-   se usaron en Mensual)*
+   se usaron en Mensual e Inversiones)*
 9. ✅ PWA: `manifest.json` + ícono + meta tags iOS (`app/layout.tsx`).
 10. Instrucciones de deploy: variables de entorno en Vercel
     (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
