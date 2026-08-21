@@ -44,15 +44,7 @@ export function QuickAddIncomeForm({ incomeCategories, onSubmit }: QuickAddIncom
           placeholder="Monto"
           value={amount}
           onChange={(event) => setAmount(event.target.value)}
-          className="w-24 rounded-xl border px-2.5 py-2 text-sm outline-none"
-          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
-        />
-        <input
-          type="text"
-          placeholder="Descripción (opcional)"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          className="flex-1 rounded-xl border px-2.5 py-2 text-sm outline-none"
+          className="min-w-0 flex-1 rounded-xl border px-2.5 py-2 text-sm outline-none"
           style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
         />
         <input
@@ -60,10 +52,19 @@ export function QuickAddIncomeForm({ incomeCategories, onSubmit }: QuickAddIncom
           required
           value={date}
           onChange={(event) => setDate(event.target.value)}
-          className="rounded-xl border px-2 py-2 text-xs outline-none"
+          className="w-33 shrink-0 rounded-xl border px-2 py-2 text-xs outline-none"
           style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
         />
       </div>
+
+      <input
+        type="text"
+        placeholder="Descripción (opcional)"
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+        className="mt-2.5 w-full rounded-xl border px-2.5 py-2 text-sm outline-none"
+        style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
+      />
 
       <div className="mt-2.5 flex gap-2 overflow-x-auto pb-1">
         {incomeCategories.map((category, index) => {
