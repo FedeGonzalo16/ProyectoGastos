@@ -2,14 +2,15 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Middleware global: corre antes de cada request de página.
+ * Proxy global (el "middleware" de Next.js 16 en adelante): corre antes de
+ * cada request de página.
  *
  * Su único trabajo es renovar la sesión de Supabase (el access token vence
  * periódicamente) y propagar las cookies actualizadas en la respuesta. Sin
  * esto, un usuario logueado podría empezar a ver la app como si no lo
  * estuviera después de un rato de inactividad.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
