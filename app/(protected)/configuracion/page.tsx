@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRepositories } from "@/hooks/useRepositories";
 import { FixedExpenseForm } from "@/components/configuracion/FixedExpenseForm";
 import { FixedExpenseListItem } from "@/components/configuracion/FixedExpenseListItem";
+import { ThemeSwitcher } from "@/components/configuracion/ThemeSwitcher";
 import type { FixedExpense } from "@/lib/types";
 
 /**
@@ -52,10 +53,13 @@ export default function ConfiguracionPage() {
     <div className="flex flex-col gap-5 px-5 pt-6 pb-4">
       <header>
         <h1 className="font-heading text-xl font-semibold">Configuración</h1>
-        <p className="mt-0.5 text-xs" style={{ color: "var(--color-text-secondary)" }}>
-          Gastos fijos
-        </p>
       </header>
+
+      <ThemeSwitcher />
+
+      <p className="-mb-2 text-xs font-semibold tracking-wide uppercase" style={{ color: "var(--color-text-secondary)" }}>
+        Gastos fijos
+      </p>
 
       <FixedExpenseForm
         expenseCategories={expenseCategories}

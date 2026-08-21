@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Work_Sans } from "next/font/google";
+import { APPLY_STORED_THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 // Mismas fuentes que se usaron en los mockups aprobados (design/): Space
@@ -37,6 +38,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${spaceGrotesk.variable} ${workSans.variable} h-full antialiased`}
     >
+      <head>
+        {/*
+          Corre antes de que React hidrate: si el usuario ya eligió tema
+          claro/oscuro a mano (ver Configuración → Apariencia), lo aplica de
+          entrada — sin esto se vería un flash del tema del sistema durante
+          un instante en cada carga de página.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: APPLY_STORED_THEME_SCRIPT }} />
+      </head>
       {/*
         Los providers de Supabase/auth se declaran en app/login/layout.tsx y
         app/(protected)/layout.tsx, no acá: así una ruta puramente estática

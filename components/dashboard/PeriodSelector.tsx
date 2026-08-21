@@ -1,11 +1,11 @@
-export type ComparisonPeriod = 6 | 12;
+export type ComparisonPeriod = 3 | 6 | 12;
 
 interface PeriodSelectorProps {
   value: ComparisonPeriod;
   onChange: (value: ComparisonPeriod) => void;
 }
 
-const OPTIONS: ComparisonPeriod[] = [6, 12];
+const OPTIONS: ComparisonPeriod[] = [3, 6, 12];
 
 /**
  * Elige cuántos meses hacia atrás muestra la comparativa del Dashboard. Las
@@ -14,7 +14,10 @@ const OPTIONS: ComparisonPeriod[] = [6, 12];
  */
 export function PeriodSelector({ value, onChange }: PeriodSelectorProps) {
   return (
-    <div className="flex gap-2">
+    // flex-wrap como red de seguridad: si algún día se agrega otra opción o
+    // el texto no entra en una pantalla angosta, pasa a una segunda fila en
+    // vez de desbordarse fuera de la tarjeta (como pasó con las stat cards).
+    <div className="flex flex-wrap gap-2">
       {OPTIONS.map((option) => {
         const isSelected = option === value;
         return (
@@ -29,7 +32,7 @@ export function PeriodSelector({ value, onChange }: PeriodSelectorProps) {
                 : { color: "var(--color-text-secondary)", border: "1px solid var(--color-border)" }
             }
           >
-            Últimos {option} meses
+            {option} meses
           </button>
         );
       })}
