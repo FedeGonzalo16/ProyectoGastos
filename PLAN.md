@@ -156,9 +156,11 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
    nombre/ticker libre, moneda, tipo de cambio → conversión a USD), distribución por
    tipo de activo, evolución del rendimiento promedio de la cartera, detalle de
    posiciones con carga de % de rendimiento inline, y totales por nombre de activo.
-8. Dashboard home con los gráficos combinados. *(pendiente — página placeholder ya creada,
-   ya existen los componentes de gráficos reutilizables — `components/charts/*` — que
-   se usaron en Mensual e Inversiones)*
+8. ✅ Dashboard home (`app/(protected)/page.tsx`): tarjetas de balance/inversión/
+   rendimiento, comparativa Ingresos vs Gastos vs Inversión con selector de período
+   (6/12 meses), y tortas de gastos e ingresos del mes actual por categoría.
+   *Simplificación:* el selector de período por ahora es 6/12 meses fijos, sin rango
+   de fechas custom (se puede agregar después si hace falta).
 9. ✅ PWA: `manifest.json` + ícono + meta tags iOS (`app/layout.tsx`).
 10. Instrucciones de deploy: variables de entorno en Vercel
     (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
