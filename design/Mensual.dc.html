@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .app { font-family: "Work Sans", "Segoe UI", sans-serif; }
+    .heading { font-family: "Space Grotesk", "Segoe UI", sans-serif; }
+    .tabular { font-variant-numeric: tabular-nums; }
+    .meter { height:5px; border-radius:3px; background:var(--grid); overflow:hidden; }
+    .meter > div { height:100%; border-radius:3px; }
+  </style>
+</helmet>
+
+<div class="app" style="
+  --bg:{{bg}}; --card:{{card}}; --text:{{text}}; --text2:{{text2}}; --muted:{{muted}};
+  --border:{{border}}; --grid:{{grid}};
+  --c1:{{c1}}; --c2:{{c2}}; --c3:{{c3}}; --c4:{{c4}}; --c5:{{c5}}; --c6:{{c6}};
+  --brand:{{c3}}; --brandSoft:{{brandSoft}}; --good:{{good}};
+  width:390px; margin:0 auto; background:var(--bg); color:var(--text); min-height:1230px; padding-bottom:28px;">
+
+  <!-- Header -->
+  <div style="padding:22px 20px 0;">
+    <div class="heading" style="font-size:21px; font-weight:600;">Resumen mensual</div>
+  </div>
+
+  <!-- Month switcher -->
+  <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin:14px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:10px 0;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="color:var(--text2);"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="heading" style="font-size:14px; font-weight:600;">Agosto 2026</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="color:var(--text2);"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Balance hero -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:20px;">
+    <div style="font-size:12px; color:var(--text2);">Balance del mes</div>
+    <div class="heading tabular" style="font-size:30px; font-weight:600; margin-top:4px;">$213.500</div>
+    <div style="display:flex; gap:10px; margin-top:16px;">
+      <div style="flex:1; background:var(--bg); border-radius:12px; padding:11px 13px;">
+        <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text2);"><span style="width:7px;height:7px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Ingresos</div>
+        <div class="tabular" style="font-size:15px; font-weight:600; margin-top:4px;">$612.000</div>
+      </div>
+      <div style="flex:1; background:var(--bg); border-radius:12px; padding:11px 13px;">
+        <div style="display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text2);"><span style="width:7px;height:7px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Gastos</div>
+        <div class="tabular" style="font-size:15px; font-weight:600; margin-top:4px;">$398.500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingresos -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <div style="font-size:14px; font-weight:600;">Ingresos</div>
+      <div class="tabular" style="font-size:13px; font-weight:600; color:var(--text2);">$612.000</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; margin-top:14px;">
+      <div>
+        <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;"><span>Sueldo</span><span class="tabular" style="font-weight:600;">$480.000</span></div>
+        <div class="meter"><div style="width:78%; background:var(--c1);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;"><span>Extra / freelance</span><span class="tabular" style="font-weight:600;">$92.000</span></div>
+        <div class="meter"><div style="width:15%; background:var(--c2);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;"><span>Otros</span><span class="tabular" style="font-weight:600;">$40.000</span></div>
+        <div class="meter"><div style="width:7%; background:var(--c3);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gastos -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <div style="font-size:14px; font-weight:600;">Gastos</div>
+      <div class="tabular" style="font-size:13px; font-weight:600; color:var(--text2);">$398.500</div>
+    </div>
+
+    <div style="margin-top:14px; font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:.03em;">Fijos · $115.600</div>
+    <div style="display:flex; flex-direction:column; gap:9px; margin-top:8px;">
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Monotributo</span><span class="tabular" style="font-weight:600;">$59.800</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c4);display:inline-block;"></span>Alquiler + expensas + luz</span><span class="tabular" style="font-weight:600;">$55.800</span></div>
+    </div>
+
+    <div style="margin-top:16px; font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:.03em;">Variables · $282.900</div>
+    <div style="display:flex; flex-direction:column; gap:9px; margin-top:8px;">
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c1);display:inline-block;"></span>Comida</span><span class="tabular" style="font-weight:600;">$127.500</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Transporte</span><span class="tabular" style="font-weight:600;">$71.700</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c5);display:inline-block;"></span>Entretenimiento</span><span class="tabular" style="font-weight:600;">$43.800</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:12.5px;"><span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--c6);display:inline-block;"></span>Otros</span><span class="tabular" style="font-weight:600;">$39.900</span></div>
+    </div>
+  </div>
+
+  <!-- Comparativa -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="font-size:14px; font-weight:600;">Ingresos vs gastos</div>
+    <div style="font-size:12px; color:var(--text2); margin-top:2px;">Comparado con meses anteriores</div>
+
+    <svg width="100%" viewBox="0 0 342 172" style="display:block; margin-top:14px;">
+      <line x1="0" y1="148" x2="342" y2="148" stroke="var(--grid)" stroke-width="1"/>
+      <rect x="12.5"  y="19.9" width="14" height="128.1" rx="3" fill="var(--c3)"/>
+      <rect x="30.5"  y="54.2" width="14" height="93.8"  rx="3" fill="var(--c2)"/>
+      <text x="28.5" y="163" text-anchor="middle" font-size="10" fill="var(--muted)">Mar</text>
+
+      <rect x="69.5"  y="16.5" width="14" height="131.5" rx="3" fill="var(--c3)"/>
+      <rect x="87.5"  y="49.6" width="14" height="98.4"  rx="3" fill="var(--c2)"/>
+      <text x="85.5" y="163" text-anchor="middle" font-size="10" fill="var(--muted)">Abr</text>
+
+      <rect x="126.5" y="13.0" width="14" height="135.0" rx="3" fill="var(--c3)"/>
+      <rect x="144.5" y="57.6" width="14" height="90.4"  rx="3" fill="var(--c2)"/>
+      <text x="142.5" y="163" text-anchor="middle" font-size="10" fill="var(--muted)">May</text>
+
+      <rect x="183.5" y="10.7" width="14" height="137.3" rx="3" fill="var(--c3)"/>
+      <rect x="201.5" y="51.9" width="14" height="96.1"  rx="3" fill="var(--c2)"/>
+      <text x="199.5" y="163" text-anchor="middle" font-size="10" fill="var(--muted)">Jun</text>
+
+      <rect x="240.5" y="9.6"  width="14" height="138.4" rx="3" fill="var(--c3)"/>
+      <rect x="258.5" y="55.4" width="14" height="92.6"  rx="3" fill="var(--c2)"/>
+      <text x="256.5" y="163" text-anchor="middle" font-size="10" fill="var(--muted)">Jul</text>
+
+      <rect x="285"   y="0"    width="46" height="148" rx="10" fill="var(--brandSoft)"/>
+      <rect x="297.5" y="8.0"  width="14" height="140.0" rx="3" fill="var(--c3)"/>
+      <rect x="315.5" y="56.8" width="14" height="91.2"  rx="3" fill="var(--c2)"/>
+      <text x="313.5" y="163" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">Ago</text>
+    </svg>
+
+    <div style="display:flex; gap:16px; margin-top:6px;">
+      <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);"><span style="width:9px;height:9px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Ingresos</div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);"><span style="width:9px;height:9px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Gastos</div>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div style="margin-top:26px; padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 10px); background:var(--card); border-top:1px solid var(--border); display:flex; justify-content:space-around;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 11 12 4l8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v8.5A1.5 1.5 0 0 0 7.5 20h9a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px;">Inicio</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 12.5h4M17.5 12.5v0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      <span style="font-size:10px;">Gastos</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--brand);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span style="font-size:10px; font-weight:600;">Mensual</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 17l5-5.5 4 3.5L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px;">Inversión</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Tema"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const theme = this.props.theme ?? "light";
+    const d = theme === "dark";
+    return {
+      theme,
+      bg:     d ? "#0d0d0d" : "#f9f9f7",
+      card:   d ? "#1a1a19" : "#ffffff",
+      text:   d ? "#ffffff" : "#0b0b0b",
+      text2:  d ? "#c3c2b7" : "#52514e",
+      muted:  "#898781",
+      border: d ? "rgba(255,255,255,0.10)" : "rgba(11,11,11,0.10)",
+      grid:   d ? "#2c2c2a" : "#e1e0d9",
+      c1: d ? "#3987e5" : "#2a78d6",
+      c2: d ? "#d95926" : "#eb6834",
+      c3: d ? "#199e70" : "#1baf7a",
+      c4: d ? "#c98500" : "#eda100",
+      c5: d ? "#d55181" : "#e87ba4",
+      c6: "#008300",
+      brandSoft: d ? "rgba(25,158,112,0.20)" : "rgba(27,175,122,0.12)",
+      good: d ? "#0ca30c" : "#006300"
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 390, "h": 1250, "title": "Dashboard · claro" },
+    { "file": "DashboardDark.dc.html", "x": 490, "y": 0, "w": 390, "h": 1250, "title": "Dashboard · oscuro" },
+    { "file": "Gastos.dc.html", "x": 980, "y": 0, "w": 390, "h": 1150, "title": "Gastos diarios" },
+    { "file": "Mensual.dc.html", "x": 1470, "y": 0, "w": 390, "h": 1300, "title": "Mensual" },
+    { "file": "Inversiones.dc.html", "x": 1960, "y": 0, "w": 390, "h": 1850, "title": "Inversiones" }
+  ],
+  "annotations": [
+    { "id": "brief-summary", "x": 0, "y": -150, "w": 560, "text": "Mockups de la app de gastos, ingresos e inversiones — datos de ejemplo.\nCada pantalla tiene un tweak \"Tema\" arriba (claro/oscuro) para probar la paleta.\nDashboard mostrado en ambos modos para validar contraste y colores." }
+  ],
+  "launch": { "view": "canvas" }
+}

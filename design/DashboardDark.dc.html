@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .app { font-family: "Work Sans", "Segoe UI", sans-serif; }
+    .heading { font-family: "Space Grotesk", "Segoe UI", sans-serif; }
+    .tabular { font-variant-numeric: tabular-nums; }
+    a { color: var(--brand, #1baf7a); text-decoration: none; }
+    a:hover { opacity: .8; }
+    .stat-scroll::-webkit-scrollbar { display: none; }
+  </style>
+</helmet>
+
+<div class="app" style="
+  --bg:{{bg}}; --card:{{card}}; --text:{{text}}; --text2:{{text2}}; --muted:{{muted}};
+  --border:{{border}}; --grid:{{grid}};
+  --c1:{{c1}}; --c2:{{c2}}; --c3:{{c3}}; --c4:{{c4}}; --c5:{{c5}}; --c6:{{c6}}; --c7:{{c7}}; --c8:{{c8}};
+  --brand:{{c3}}; --brandSoft:{{brandSoft}}; --good:{{good}};
+  width:390px; margin:0 auto; background:var(--bg); color:var(--text); min-height:1150px; padding-bottom:28px;">
+
+  <!-- Header -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 20px 0;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <rect x="1" y="1" width="22" height="22" rx="7" fill="var(--brand)"/>
+        <path d="M6.5 9.5h11a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 16V9.5Z" stroke="#ffffff" stroke-width="1.4" fill="none"/>
+        <path d="M5 9.5 8.6 6h6.9L19 9.5" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+        <circle cx="15.2" cy="13.4" r="1.15" fill="#ffffff"/>
+      </svg>
+      <span class="heading" style="font-size:18px; font-weight:600; letter-spacing:-0.01em;">gastos</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <sc-if value="{{isDark}}" hint-placeholder-val="{{false}}">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" style="color:var(--text2);">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </sc-if>
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{true}}">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" style="color:var(--text2);">
+          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.4 12H2M22 12h-2.4M5.4 5.4l1.7 1.7M18.6 5.4l-1.7 1.7M5.4 18.6l1.7-1.7M18.6 18.6l-1.7-1.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </sc-if>
+      <div style="width:30px; height:30px; border-radius:50%; background:var(--brandSoft); color:var(--brand); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:13px; font-family:'Space Grotesk',sans-serif;">F</div>
+    </div>
+  </div>
+
+  <!-- Period selector -->
+  <div style="display:flex; gap:8px; padding:18px 20px 0; overflow-x:auto;">
+    <div style="background:var(--brandSoft); color:var(--brand); font-weight:600; font-size:13px; padding:8px 14px; border-radius:999px; white-space:nowrap;">Este mes</div>
+    <div style="color:var(--text2); font-size:13px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); white-space:nowrap;">6 meses</div>
+    <div style="color:var(--text2); font-size:13px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); white-space:nowrap;">12 meses</div>
+    <div style="display:flex; align-items:center; gap:5px; color:var(--text2); font-size:13px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); white-space:nowrap;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Rango
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stat-scroll" style="display:flex; gap:12px; padding:16px 20px 0; overflow-x:auto;">
+    <div style="flex:0 0 152px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 16px;">
+      <div style="font-size:12px; color:var(--text2);">Balance del mes</div>
+      <div class="heading tabular" style="font-size:21px; font-weight:600; margin-top:6px;">$213.500</div>
+      <div style="display:flex; align-items:center; gap:4px; margin-top:6px; color:var(--good); font-size:12px; font-weight:600;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M6 15 12 8l6 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        +16% vs jul.
+      </div>
+    </div>
+    <div style="flex:0 0 152px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 16px;">
+      <div style="font-size:12px; color:var(--text2);">Total invertido</div>
+      <div class="heading tabular" style="font-size:21px; font-weight:600; margin-top:6px;">US$ 4.085</div>
+      <div style="margin-top:6px; color:var(--text2); font-size:12px;">4 posiciones</div>
+    </div>
+    <div style="flex:0 0 152px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px 16px;">
+      <div style="font-size:12px; color:var(--text2);">Rendimiento</div>
+      <div class="heading tabular" style="font-size:21px; font-weight:600; margin-top:6px; color:var(--good);">+8,2%</div>
+      <div style="margin-top:6px; color:var(--text2); font-size:12px;">promedio cartera</div>
+    </div>
+  </div>
+
+  <!-- Comparativa chart -->
+  <div style="margin:20px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="font-size:14px; font-weight:600;">Ingresos, gastos e inversión</div>
+    <div style="font-size:12px; color:var(--text2); margin-top:2px;">Últimos 6 meses</div>
+
+    <div style="position:relative; margin-top:14px;">
+      <div style="position:absolute; top:0; right:8px; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:11px; line-height:1.5; box-shadow:0 4px 14px rgba(0,0,0,.12);">
+        <div style="font-weight:600; margin-bottom:3px;">Agosto</div>
+        <div style="color:var(--c3);">● Ingresos $612k</div>
+        <div style="color:var(--c2);">● Gastos $398,5k</div>
+        <div style="color:var(--c1);">● Inversión $90k</div>
+      </div>
+      <svg width="100%" viewBox="0 0 342 198" style="display:block; margin-top:52px;">
+        <line x1="0" y1="166" x2="342" y2="166" stroke="var(--grid)" stroke-width="1"/>
+        <!-- Mar -->
+        <rect x="6"  y="28.7" width="9" height="137.3" rx="2.5" fill="var(--c3)"/>
+        <rect x="17" y="65.5" width="9" height="100.5" rx="2.5" fill="var(--c2)"/>
+        <rect x="28" y="151.3" width="9" height="14.7" rx="2.5" fill="var(--c1)"/>
+        <text x="21" y="182" text-anchor="middle" font-size="10" fill="var(--muted)">Mar</text>
+        <!-- Abr -->
+        <rect x="63" y="25.1" width="9" height="140.9" rx="2.5" fill="var(--c3)"/>
+        <rect x="74" y="60.6" width="9" height="105.4" rx="2.5" fill="var(--c2)"/>
+        <rect x="85" y="152.5" width="9" height="13.5" rx="2.5" fill="var(--c1)"/>
+        <text x="78" y="182" text-anchor="middle" font-size="10" fill="var(--muted)">Abr</text>
+        <!-- May -->
+        <rect x="120" y="21.4" width="9" height="144.6" rx="2.5" fill="var(--c3)"/>
+        <rect x="131" y="69.2" width="9" height="96.8" rx="2.5" fill="var(--c2)"/>
+        <rect x="142" y="148.8" width="9" height="17.2" rx="2.5" fill="var(--c1)"/>
+        <text x="135" y="182" text-anchor="middle" font-size="10" fill="var(--muted)">May</text>
+        <!-- Jun -->
+        <rect x="177" y="18.9" width="9" height="147.1" rx="2.5" fill="var(--c3)"/>
+        <rect x="188" y="63.1" width="9" height="102.9" rx="2.5" fill="var(--c2)"/>
+        <rect x="199" y="150.1" width="9" height="15.9" rx="2.5" fill="var(--c1)"/>
+        <text x="192" y="182" text-anchor="middle" font-size="10" fill="var(--muted)">Jun</text>
+        <!-- Jul -->
+        <rect x="234" y="17.7" width="9" height="148.3" rx="2.5" fill="var(--c3)"/>
+        <rect x="245" y="66.7" width="9" height="99.3" rx="2.5" fill="var(--c2)"/>
+        <rect x="256" y="146.4" width="9" height="19.6" rx="2.5" fill="var(--c1)"/>
+        <text x="249" y="182" text-anchor="middle" font-size="10" fill="var(--muted)">Jul</text>
+        <!-- Ago (selected) -->
+        <rect x="288" y="8" width="46" height="158" rx="10" fill="var(--brandSoft)"/>
+        <rect x="291" y="16"  width="9" height="150" rx="2.5" fill="var(--c3)"/>
+        <rect x="302" y="68.3" width="9" height="97.7" rx="2.5" fill="var(--c2)"/>
+        <rect x="313" y="143.9" width="9" height="22.1" rx="2.5" fill="var(--c1)"/>
+        <text x="306" y="182" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">Ago</text>
+      </svg>
+    </div>
+
+    <div style="display:flex; gap:16px; margin-top:8px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);"><span style="width:9px;height:9px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Ingresos</div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);"><span style="width:9px;height:9px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Gastos</div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text2);"><span style="width:9px;height:9px;border-radius:50%;background:var(--c1);display:inline-block;"></span>Inversión</div>
+    </div>
+  </div>
+
+  <!-- Gastos por categoria -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="font-size:14px; font-weight:600;">Gastos por categoría</div>
+    <div style="font-size:12px; color:var(--text2); margin-top:2px;">Agosto 2026 · $398.500</div>
+    <div style="display:flex; align-items:center; gap:18px; margin-top:14px;">
+      <svg width="112" height="112" viewBox="0 0 120 120" style="flex:0 0 auto;">
+        <g transform="rotate(-90 60 60)">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c1)" stroke-width="20" stroke-dasharray="106.1 233.2" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c2)" stroke-width="20" stroke-dasharray="58.6 280.7" stroke-dashoffset="-108.6" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c3)" stroke-width="20" stroke-dasharray="48.4 290.9" stroke-dashoffset="-169.6" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c4)" stroke-width="20" stroke-dasharray="45.0 294.3" stroke-dashoffset="-220.5" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c5)" stroke-width="20" stroke-dasharray="34.8 304.5" stroke-dashoffset="-268.0" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="54" fill="none" stroke="var(--c6)" stroke-width="20" stroke-dasharray="31.4 307.9" stroke-dashoffset="-305.4" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div style="flex:1; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c1);display:inline-block;"></span>Comida</span><span class="tabular" style="font-weight:600;">32%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Transporte</span><span class="tabular" style="font-weight:600;">18%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Monotributo</span><span class="tabular" style="font-weight:600;">15%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c4);display:inline-block;"></span>Servicios</span><span class="tabular" style="font-weight:600;">14%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c5);display:inline-block;"></span>Entretenim.</span><span class="tabular" style="font-weight:600;">11%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c6);display:inline-block;"></span>Otros</span><span class="tabular" style="font-weight:600;">10%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingresos por categoria -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px;">
+    <div style="font-size:14px; font-weight:600;">Ingresos por categoría</div>
+    <div style="font-size:12px; color:var(--text2); margin-top:2px;">Agosto 2026 · $612.000</div>
+    <div style="display:flex; align-items:center; gap:18px; margin-top:14px;">
+      <svg width="96" height="96" viewBox="0 0 100 100" style="flex:0 0 auto;">
+        <g transform="rotate(-90 50 50)">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="var(--c1)" stroke-width="16" stroke-dasharray="213.1 63.3" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="var(--c2)" stroke-width="16" stroke-dasharray="39.0 237.5" stroke-dashoffset="-215.6" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="var(--c3)" stroke-width="16" stroke-dasharray="16.9 259.6" stroke-dashoffset="-257.1" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c1);display:inline-block;"></span>Sueldo</span><span class="tabular" style="font-weight:600;">78%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c2);display:inline-block;"></span>Extra / freelance</span><span class="tabular" style="font-weight:600;">15%</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;"><span style="display:flex;align-items:center;gap:6px;color:var(--text2);"><span style="width:8px;height:8px;border-radius:50%;background:var(--c3);display:inline-block;"></span>Otros</span><span class="tabular" style="font-weight:600;">7%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div style="margin-top:26px; padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 10px); background:var(--card); border-top:1px solid var(--border); display:flex; justify-content:space-around;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--brand);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 11 12 4l8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v8.5A1.5 1.5 0 0 0 7.5 20h9a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px; font-weight:600;">Inicio</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 12.5h4M17.5 12.5v0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      <span style="font-size:10px;">Gastos</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span style="font-size:10px;">Mensual</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 17l5-5.5 4 3.5L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px;">Inversión</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"dark","section":"Tema"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const theme = this.props.theme ?? "light";
+    const d = theme === "dark";
+    return {
+      theme,
+      isDark: d,
+      isLight: !d,
+      bg:     d ? "#0d0d0d" : "#f9f9f7",
+      card:   d ? "#1a1a19" : "#ffffff",
+      text:   d ? "#ffffff" : "#0b0b0b",
+      text2:  d ? "#c3c2b7" : "#52514e",
+      muted:  "#898781",
+      border: d ? "rgba(255,255,255,0.10)" : "rgba(11,11,11,0.10)",
+      grid:   d ? "#2c2c2a" : "#e1e0d9",
+      c1: d ? "#3987e5" : "#2a78d6",
+      c2: d ? "#d95926" : "#eb6834",
+      c3: d ? "#199e70" : "#1baf7a",
+      c4: d ? "#c98500" : "#eda100",
+      c5: d ? "#d55181" : "#e87ba4",
+      c6: "#008300",
+      c7: d ? "#9085e9" : "#4a3aa7",
+      c8: d ? "#e66767" : "#e34948",
+      brandSoft: d ? "rgba(25,158,112,0.20)" : "rgba(27,175,122,0.12)",
+      good: d ? "#0ca30c" : "#006300"
+    };
+  }
+}
+</script>
+</body>
+</html>

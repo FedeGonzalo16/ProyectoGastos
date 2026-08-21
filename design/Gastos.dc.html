@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .app { font-family: "Work Sans", "Segoe UI", sans-serif; }
+    .heading { font-family: "Space Grotesk", "Segoe UI", sans-serif; }
+    .tabular { font-variant-numeric: tabular-nums; }
+    a { color: var(--brand, #1baf7a); text-decoration: none; }
+    .chip-row::-webkit-scrollbar { display: none; }
+  </style>
+</helmet>
+
+<div class="app" style="
+  --bg:{{bg}}; --card:{{card}}; --text:{{text}}; --text2:{{text2}}; --muted:{{muted}};
+  --border:{{border}}; --grid:{{grid}};
+  --c1:{{c1}}; --c2:{{c2}}; --c3:{{c3}}; --c4:{{c4}}; --c5:{{c5}}; --c6:{{c6}};
+  --brand:{{c3}}; --brandSoft:{{brandSoft}}; --good:{{good}};
+  width:390px; margin:0 auto; background:var(--bg); color:var(--text); min-height:1060px; padding-bottom:28px;">
+
+  <!-- Header -->
+  <div style="padding:22px 20px 0;">
+    <div class="heading" style="font-size:21px; font-weight:600;">Nuevo gasto</div>
+    <div style="font-size:12px; color:var(--text2); margin-top:2px;">Cargalo en unos segundos</div>
+  </div>
+
+  <!-- Quick add card -->
+  <div style="margin:16px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:20px;">
+
+    <!-- Amount -->
+    <div style="display:flex; align-items:baseline; justify-content:center; gap:6px; padding:6px 0 4px;">
+      <span class="heading" style="font-size:26px; font-weight:600; color:var(--text2);">$</span>
+      <span class="heading tabular" style="font-size:40px; font-weight:600; letter-spacing:-0.01em;">12.400</span>
+      <span style="width:2px; height:32px; background:var(--brand); display:inline-block; margin-left:2px; border-radius:1px;"></span>
+    </div>
+
+    <!-- Category chips -->
+    <div class="chip-row" style="display:flex; gap:8px; overflow-x:auto; padding:14px 0 2px;">
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; background:var(--brandSoft); border:1.5px solid var(--brand); color:var(--brand); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; font-weight:600; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 11c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 11h18v2a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        Comida
+      </div>
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="10" width="17" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.7"/><circle cx="7.5" cy="19" r="1.4" fill="currentColor"/><circle cx="16.5" cy="19" r="1.4" fill="currentColor"/></svg>
+        Transporte
+      </div>
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Servicios
+      </div>
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 5v14l6-4V5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 5h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Ocio
+      </div>
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5v9M9 9.5h4.2a2 2 0 1 1 0 4H9h4.5a2 2 0 1 1 0 4H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Monotributo
+      </div>
+      <div style="flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:7px 13px 7px 9px; font-size:12.5px; white-space:nowrap;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h.01M15 9h.01M8.5 15c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        Otros
+      </div>
+    </div>
+
+    <!-- Fecha + descripcion -->
+    <div style="display:flex; gap:10px; margin-top:14px;">
+      <div style="flex:1; border:1px solid var(--border); border-radius:12px; padding:10px 12px;">
+        <div style="font-size:10.5px; color:var(--text2);">Fecha</div>
+        <div style="font-size:13px; font-weight:500; margin-top:2px;">21 ago. 2026</div>
+      </div>
+      <div style="flex:1.4; border:1px solid var(--border); border-radius:12px; padding:10px 12px;">
+        <div style="font-size:10.5px; color:var(--text2);">Descripción</div>
+        <div style="font-size:13px; font-weight:500; margin-top:2px; color:var(--text2);">Supermercado</div>
+      </div>
+    </div>
+
+    <!-- Medio de pago -->
+    <div style="margin-top:12px;">
+      <div style="font-size:10.5px; color:var(--text2); margin-bottom:6px;">Medio de pago</div>
+      <div style="display:flex; gap:6px;">
+        <div style="flex:1; text-align:center; background:var(--brandSoft); color:var(--brand); border-radius:10px; padding:8px 0; font-size:11.5px; font-weight:600;">Débito</div>
+        <div style="flex:1; text-align:center; color:var(--text2); border:1px solid var(--border); border-radius:10px; padding:8px 0; font-size:11.5px;">Crédito</div>
+        <div style="flex:1; text-align:center; color:var(--text2); border:1px solid var(--border); border-radius:10px; padding:8px 0; font-size:11.5px;">Efectivo</div>
+        <div style="flex:1; text-align:center; color:var(--text2); border:1px solid var(--border); border-radius:10px; padding:8px 0; font-size:11.5px;">Transf.</div>
+      </div>
+    </div>
+
+    <!-- Save button -->
+    <div style="margin-top:16px; background:var(--brand); color:#ffffff; text-align:center; border-radius:12px; padding:13px 0; font-size:14px; font-weight:600;">
+      Guardar gasto
+    </div>
+  </div>
+
+  <!-- Recent list -->
+  <div style="margin:24px 20px 0; display:flex; align-items:center; justify-content:space-between;">
+    <div style="font-size:14px; font-weight:600;">Gastos recientes</div>
+    <div style="display:flex; gap:6px;">
+      <div style="font-size:11px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:5px 10px;">Esta semana</div>
+      <div style="font-size:11px; color:var(--text2); border:1px solid var(--border); border-radius:999px; padding:5px 10px;">Categoría</div>
+    </div>
+  </div>
+
+  <div style="margin:12px 20px 0; background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden;">
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c1) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c1); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 11c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 11h18v2a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:500;">Supermercado</div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">Hoy · Débito</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$12.400</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c2) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c2); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="10" width="17" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.7"/><circle cx="7.5" cy="19" r="1.4" fill="currentColor"/><circle cx="16.5" cy="19" r="1.4" fill="currentColor"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:500;">Colectivo</div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">Hoy · Efectivo</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$980</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c5) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c5); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 5v14l6-4V5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4 5h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:500;">Netflix</div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">Ayer · Crédito</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$3.200</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c6) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c6); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h.01M15 9h.01M8.5 15c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:500;">Farmacia</div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">Ayer · Efectivo</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$5.600</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px; border-bottom:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c2) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c2); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="10" width="17" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.7"/><circle cx="7.5" cy="19" r="1.4" fill="currentColor"/><circle cx="16.5" cy="19" r="1.4" fill="currentColor"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:500;">Nafta</div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">19 ago · Débito</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$18.000</div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; padding:13px 16px;">
+      <div style="width:36px; height:36px; border-radius:10px; background:color-mix(in oklab, var(--c4) 16%, var(--card)); display:flex; align-items:center; justify-content:center; color:var(--c4); flex:0 0 auto;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <div style="font-size:13px; font-weight:500;">Alquiler + expensas + luz</div>
+          <div style="font-size:9.5px; font-weight:600; color:var(--text2); background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:1px 5px;">FIJO</div>
+        </div>
+        <div style="font-size:11px; color:var(--text2); margin-top:1px;">18 ago · Transferencia</div>
+      </div>
+      <div class="tabular" style="font-size:13.5px; font-weight:600;">$55.800</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom nav -->
+  <div style="margin-top:26px; padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 10px); background:var(--card); border-top:1px solid var(--border); display:flex; justify-content:space-around;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 11 12 4l8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v8.5A1.5 1.5 0 0 0 7.5 20h9a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px;">Inicio</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--brand);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6.5" width="17" height="12" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 12.5h4M17.5 12.5v0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      <span style="font-size:10px; font-weight:600;">Gastos</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="16" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span style="font-size:10px;">Mensual</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--muted);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 17l5-5.5 4 3.5L20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-size:10px;">Inversión</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Tema"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const theme = this.props.theme ?? "light";
+    const d = theme === "dark";
+    return {
+      theme,
+      bg:     d ? "#0d0d0d" : "#f9f9f7",
+      card:   d ? "#1a1a19" : "#ffffff",
+      text:   d ? "#ffffff" : "#0b0b0b",
+      text2:  d ? "#c3c2b7" : "#52514e",
+      muted:  "#898781",
+      border: d ? "rgba(255,255,255,0.10)" : "rgba(11,11,11,0.10)",
+      grid:   d ? "#2c2c2a" : "#e1e0d9",
+      c1: d ? "#3987e5" : "#2a78d6",
+      c2: d ? "#d95926" : "#eb6834",
+      c3: d ? "#199e70" : "#1baf7a",
+      c4: d ? "#c98500" : "#eda100",
+      c5: d ? "#d55181" : "#e87ba4",
+      c6: "#008300",
+      brandSoft: d ? "rgba(25,158,112,0.20)" : "rgba(27,175,122,0.12)",
+      good: d ? "#0ca30c" : "#006300"
+    };
+  }
+}
+</script>
+</body>
+</html>
