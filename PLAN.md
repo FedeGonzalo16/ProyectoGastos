@@ -147,11 +147,16 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
    sincronización + motor de sync, y un repositorio genérico por entidad.
 5. ✅ Módulo Gastos diarios: formulario + listado (`app/(protected)/gastos`), usando el
    repositorio de gastos. Categorías por defecto se siembran solas en el primer login.
-6. Módulo Mensual: lógica de auto-generación de fijos, form de ingresos, agregaciones y
-   gráficos. *(pendiente — página placeholder ya creada)*
+6. ✅ Módulo Mensual (`app/(protected)/mensual`): auto-generación de gastos fijos al
+   entrar al mes, alta de ingresos categorizados, desglose fijos/variables, balance,
+   tortas de gastos/ingresos por categoría, comparativa contra meses anteriores.
+   Incluye `app/(protected)/configuracion` (CRUD de plantillas de gastos fijos: alta,
+   editar monto/categoría/día, activar/desactivar).
 7. Módulo Inversiones: formulario con conversión de moneda, tabla de totales, historial
    de valuación y gráficos. *(pendiente — página placeholder ya creada)*
-8. Dashboard home con los gráficos combinados. *(pendiente — página placeholder ya creada)*
+8. Dashboard home con los gráficos combinados. *(pendiente — página placeholder ya creada,
+   ya existen los componentes de gráficos reutilizables — `components/charts/*` — que
+   se usaron en Mensual)*
 9. ✅ PWA: `manifest.json` + ícono + meta tags iOS (`app/layout.tsx`).
 10. Instrucciones de deploy: variables de entorno en Vercel
     (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
