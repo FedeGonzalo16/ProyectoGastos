@@ -141,18 +141,25 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
 1. ✅ Scaffold: `create-next-app` (TS + Tailwind + App Router), init git.
 2. ✅ Archivo `supabase/schema.sql` con el modelo de datos completo + políticas RLS,
    listo para pegar en el SQL Editor de Supabase.
-3. Cliente Supabase (`lib/supabase.ts`) + páginas de login/middleware de sesión.
-4. Capa offline (`lib/offline/*`, `lib/repository/*`) — antes de las pantallas, porque
-   todas las pantallas la usan para leer/escribir datos.
-5. Módulo Gastos diarios: formulario + listado, usando el repositorio de gastos.
+3. ✅ Cliente Supabase (`lib/supabase/client.ts` + `server.ts`) + `app/login` + `proxy.ts`
+   (renovación de sesión).
+4. ✅ Capa offline (`lib/offline/*`, `lib/repository/*`): localStorage + cola de
+   sincronización + motor de sync, y un repositorio genérico por entidad.
+5. ✅ Módulo Gastos diarios: formulario + listado (`app/(protected)/gastos`), usando el
+   repositorio de gastos. Categorías por defecto se siembran solas en el primer login.
 6. Módulo Mensual: lógica de auto-generación de fijos, form de ingresos, agregaciones y
-   gráficos.
+   gráficos. *(pendiente — página placeholder ya creada)*
 7. Módulo Inversiones: formulario con conversión de moneda, tabla de totales, historial
-   de valuación y gráficos.
-8. Dashboard home con los gráficos combinados.
-9. PWA: manifest + iconos + meta tags iOS.
+   de valuación y gráficos. *(pendiente — página placeholder ya creada)*
+8. Dashboard home con los gráficos combinados. *(pendiente — página placeholder ya creada)*
+9. ✅ PWA: `manifest.json` + ícono + meta tags iOS (`app/layout.tsx`).
 10. Instrucciones de deploy: variables de entorno en Vercel
     (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
+    *(pendiente — requiere que el usuario cree su proyecto de Supabase primero)*
+
+**Para que la app funcione de verdad** (más allá de compilar) todavía falta que el
+usuario cree su proyecto en Supabase, pegue `supabase/schema.sql` en el SQL Editor, y
+copie `.env.local.example` a `.env.local` con la URL y la anon key de ese proyecto.
 
 ## Verificación
 
