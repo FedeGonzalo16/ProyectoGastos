@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { Category, FixedExpense } from "@/lib/types";
+import { categoricalColorVar } from "@/lib/charts/categoricalColor";
 
 type FixedExpenseInput = Omit<FixedExpense, "id" | "user_id" | "created_at" | "updated_at">;
 
@@ -113,19 +114,54 @@ export function FixedExpenseForm({
           />
         </div>
 
-        <select
-          value={form.categoryId ?? ""}
-          onChange={(event) => setForm({ ...form, categoryId: event.target.value || null })}
-          className="rounded-xl border px-3 py-2 text-sm outline-none"
-          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
-        >
-          <option value="">Sin categoría</option>
-          {expenseCategories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <div>
+          <p className="mb-1.5 text-[10.5px]" style={{ color: "var(--color-text-secondary)" }}>
+            Categoría
+          </p>
+          {/*
+            Chips en vez de un <select> nativo a propósito: el popup de un
+            <select> lo dibuja el sistema operativo, no el navegador — en
+            Windows sale siempre con fondo blanco sin importar el CSS
+            (color-scheme no alcanza a cambiarlo ahí), así que quedaba
+            ilegible en modo oscuro. Los chips los pintamos nosotros.
+          */}
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, categoryId: null })}
+              className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold"
+              style={
+                form.categoryId === null
+                  ? { background: "var(--color-brand-soft)", color: "var(--color-brand)", border: "1.5px solid var(--color-brand)" }
+                  : { color: "var(--color-text-secondary)", border: "1px solid var(--color-border)" }
+              }
+            >
+              Sin categoría
+            </button>
+            {expenseCategories.map((category, index) => {
+              const isSelected = category.id === form.categoryId;
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setForm({ ...form, categoryId: category.id })}
+                  className="shrink-0 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold"
+                  style={
+                    isSelected
+                      ? {
+                          background: "var(--color-brand-soft)",
+                          color: categoricalColorVar(index),
+                          border: `1.5px solid ${categoricalColorVar(index)}`,
+                        }
+                      : { color: "var(--color-text-secondary)", border: "1px solid var(--color-border)" }
+                  }
+                >
+                  {category.name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="mt-3 flex gap-2">
