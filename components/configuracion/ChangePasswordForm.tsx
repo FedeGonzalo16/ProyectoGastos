@@ -1,0 +1,104 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { useAuth } from "@/app/providers/AuthProvider";
+import { CheckIcon, LockIcon } from "@/components/shared/icons";
+
+/**
+ * Cambiar la contraseña estando ya logueado — distinto del flujo de "olvidé
+ * mi contraseña" (`/login` → mail → `/reset-password`), que es para cuando
+ * no podés entrar. Este solo necesita `updateUser`, ya hay una sesión activa.
+ */
+export function ChangePasswordForm() {
+  const { supabase } = useAuth();
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("Las contraseñas no coinciden.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    setIsSubmitting(false);
+
+    if (error) {
+      setErrorMessage(error.message);
+      return;
+    }
+
+    setNewPassword("");
+    setConfirmPassword("");
+    setSuccessMessage("Contraseña actualizada.");
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-2xl border p-4"
+      style={{ background: "var(--color-card)", borderColor: "var(--color-border)" }}
+    >
+      <p className="flex items-center gap-1.5 text-sm font-semibold">
+        <LockIcon />
+        Cambiar contraseña
+      </p>
+
+      <label className="mt-3 block text-[10.5px]" style={{ color: "var(--color-text-secondary)" }}>
+        Contraseña nueva
+        <input
+          type="password"
+          required
+          minLength={6}
+          value={newPassword}
+          onChange={(event) => setNewPassword(event.target.value)}
+          className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
+          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
+        />
+      </label>
+
+      <label className="mt-2.5 block text-[10.5px]" style={{ color: "var(--color-text-secondary)" }}>
+        Repetir contraseña
+        <input
+          type="password"
+          required
+          minLength={6}
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
+          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
+        />
+      </label>
+
+      {errorMessage && (
+        <p className="mt-2.5 text-[11.5px]" style={{ color: "var(--chart-8)" }}>
+          {errorMessage}
+        </p>
+      )}
+      {successMessage && (
+        <p className="mt-2.5 text-[11.5px]" style={{ color: "var(--color-good)" }}>
+          {successMessage}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+        style={{ background: "var(--color-brand)" }}
+      >
+        <CheckIcon />
+        Guardar contraseña
+      </button>
+    </form>
+  );
+}

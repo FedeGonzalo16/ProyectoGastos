@@ -67,6 +67,8 @@ export function GroupedBarChart({
                   height={Math.max(bar.height, 1)}
                   rx={2.5}
                   fill={categoricalColorVar(bar.seriesIndex)}
+                  className="chart-bar-grow"
+                  style={{ animationDelay: `${group.periodIndex * 40}ms` }}
                 />
               ))}
               <text

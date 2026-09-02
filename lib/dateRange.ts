@@ -71,3 +71,49 @@ export function formatYearMonthShort({ month }: YearMonth): string {
 export function lastNMonths(endingAt: YearMonth, count: number): YearMonth[] {
   return Array.from({ length: count }, (_, index) => addMonths(endingAt, index - (count - 1)));
 }
+
+/** El año y mes de una fecha "YYYY-MM-DD" (para comparar contra otro YearMonth). */
+export function yearMonthFromDate(isoDate: string): YearMonth {
+  const [year, month] = isoDate.split("-").map(Number);
+  return { year, month };
+}
+
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+/** Cuántos días hay entre dos fechas "YYYY-MM-DD" (negativo si `to` es anterior a `from`). */
+export function daysBetween(from: string, to: string): number {
+  const [fromYear, fromMonth, fromDay] = from.split("-").map(Number);
+  const [toYear, toMonth, toDay] = to.split("-").map(Number);
+  // Date.UTC en vez de `new Date(y, m, d)`: evita que un cambio de horario de
+  // verano entre las dos fechas corra el resultado medio día para un lado.
+  const fromMs = Date.UTC(fromYear, fromMonth - 1, fromDay);
+  const toMs = Date.UTC(toYear, toMonth - 1, toDay);
+  return Math.round((toMs - fromMs) / MS_PER_DAY);
+}
+
+/** Cuántos meses hay entre dos YearMonth, ambos incluidos (ej. Ago→Ago = 1, Ago→Oct = 3). */
+export function monthsBetweenInclusive(from: YearMonth, to: YearMonth): number {
+  return (to.year - from.year) * 12 + (to.month - from.month) + 1;
+}
+
+/** Convierte a "YYYY-MM", el formato que espera un <input type="month">. */
+export function yearMonthToMonthInput({ year, month }: YearMonth): string {
+  return `${year}-${pad2(month)}`;
+}
+
+/** Inverso de `yearMonthToMonthInput` — parsea el valor de un <input type="month">. */
+export function yearMonthFromMonthInput(value: string): YearMonth {
+  const [year, month] = value.split("-").map(Number);
+  return { year, month };
+}
+
+// Tope de seguridad para un rango personalizado: evita que una fecha "hasta"
+// anterior a la "desde" (o un rango absurdamente largo) rompa el gráfico.
+const MAX_CUSTOM_RANGE_MONTHS = 36;
+
+/** Todos los meses entre `from` y `to` (ambos incluidos), en orden cronológico. Si `to` quedó antes que `from`, se devuelve solo `from`. */
+export function monthRangeInclusive(from: YearMonth, to: YearMonth): YearMonth[] {
+  const count = Math.min(monthsBetweenInclusive(from, to), MAX_CUSTOM_RANGE_MONTHS);
+  if (count <= 0) return [from];
+  return Array.from({ length: count }, (_, index) => addMonths(from, index));
+}

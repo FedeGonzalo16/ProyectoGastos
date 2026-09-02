@@ -1,9 +1,12 @@
 import type {
   Category,
+  CategoryBudget,
   Expense,
   FixedExpense,
+  FixedIncome,
   Income,
   Investment,
+  InvestmentGoal,
   InvestmentValuation,
 } from "@/lib/types";
 import { createRepository } from "@/lib/repository/createRepository";
@@ -34,6 +37,10 @@ export function createIncomesRepository(getUserId: () => string): Repository<Inc
   return createRepository<Income>({ table: "incomes", getUserId });
 }
 
+export function createFixedIncomesRepository(getUserId: () => string): Repository<FixedIncome> {
+  return createRepository<FixedIncome>({ table: "fixed_incomes", getUserId });
+}
+
 export function createInvestmentsRepository(getUserId: () => string): Repository<Investment> {
   return createRepository<Investment>({ table: "investments", getUserId });
 }
@@ -45,4 +52,16 @@ export function createInvestmentValuationsRepository(
     table: "investment_valuations",
     getUserId,
   });
+}
+
+export function createCategoryBudgetsRepository(
+  getUserId: () => string
+): Repository<CategoryBudget> {
+  return createRepository<CategoryBudget>({ table: "category_budgets", getUserId });
+}
+
+export function createInvestmentGoalsRepository(
+  getUserId: () => string
+): Repository<InvestmentGoal> {
+  return createRepository<InvestmentGoal>({ table: "investment_goals", getUserId });
 }

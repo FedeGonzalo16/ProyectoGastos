@@ -31,3 +31,10 @@ export function formatShortDate(isoDate: string): string {
 export function todayAsDateInput(): string {
   return new Date().toISOString().slice(0, 10);
 }
+
+/** La fecha de hace `days` días, en formato "YYYY-MM-DD" — para filtros como "últimos 7 días". */
+export function daysAgoAsDateInput(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return date.toISOString().slice(0, 10);
+}

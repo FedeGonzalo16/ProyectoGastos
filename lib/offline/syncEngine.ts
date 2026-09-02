@@ -21,9 +21,12 @@ export const SYNCED_TABLES = [
   "categories",
   "fixed_expenses",
   "expenses",
+  "fixed_incomes",
   "incomes",
   "investments",
   "investment_valuations",
+  "category_budgets",
+  "investment_goals",
 ] as const;
 
 export type SyncedTable = (typeof SYNCED_TABLES)[number];

@@ -32,13 +32,34 @@
   --chart-3: #1baf7a; /* aqua/verde — también el acento de marca */
   --chart-4: #eda100; /* amarillo */
   --chart-5: #e87ba4; /* magenta */
-  --chart-6: #008300; /* verde */
+  --chart-6: #2f9e44; /* verde — más vivo que la versión anterior, bastante apagada */
   --chart-7: #4a3aa7; /* violeta */
   --chart-8: #e34948; /* rojo */
 
-  --color-brand: var(--chart-3);
-  --color-brand-soft: rgba(27, 175, 122, 0.12);
+  /* "Esto confirma/agrega algo" (Guardar, +Nueva, Confirmar, y los links de
+     acción tipo Editar/Gestionar) — azul claro, no el verde: ese queda para
+     "ganancia/positivo" (color-good), sin superponerse. No es alias a
+     chart-1 a propósito (ese queda más apagado) — se redefine el tono en el
+     bloque oscuro de más abajo, un poco más claro para que siga vivo contra
+     el fondo oscuro. */
+  --color-brand: #3b9eff;
+  --color-brand-soft: color-mix(in srgb, #3b9eff 14%, transparent);
   --color-good: #006300;
+
+  /* Estado "elegido" de un toggle/filtro (tipo de activo, medio de pago,
+     período, claro/oscuro, nav) — mismo azul que las acciones (color-brand),
+     ya no un color aparte (se probó violeta y no cerró). Queda como alias
+     propio, no un uso directo de color-brand en cada componente, para poder
+     volver a separarlos acá nomás si hace falta más adelante. */
+  --color-toggle: var(--color-brand);
+  --color-toggle-soft: var(--color-brand-soft);
+
+  /* Sombra sutil para tarjetas/superficies — les da un poco de volumen en
+     vez de que se sostengan solo con el borde de 1px. */
+  --shadow-card: 0 1px 2px rgba(11, 11, 11, 0.04), 0 6px 16px -8px rgba(11, 11, 11, 0.1);
+  /* Sombra hacia ARRIBA para la barra de navegación de abajo — "flota" sobre
+     el contenido que scrollea debajo, en vez de solo tener un borde de 1px. */
+  --shadow-nav: 0 -2px 12px -4px rgba(11, 11, 11, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,12 +76,31 @@
     --chart-3: #199e70;
     --chart-4: #c98500;
     --chart-5: #d55181;
+    --chart-6: #4cbb5c;
     --chart-7: #9085e9;
     --chart-8: #e66767;
 
-    --color-brand-soft: rgba(25, 158, 112, 0.2);
     --color-good: #0ca30c;
+    --color-brand: #5cb8ff;
+    --color-brand-soft: color-mix(in srgb, #5cb8ff 18%, transparent);
+
+    /* En oscuro una sombra negra casi no se ve contra el fondo — se compensa
+       con más opacidad/alcance en vez de más negrura. */
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+    --shadow-nav: 0 -2px 14px -4px rgba(0, 0, 0, 0.55);
   }
+}
+
+/*
+ * Sin esto, elegir "claro" a mano en un sistema operativo que está en modo
+ * oscuro dejaba los controles nativos (flechitas de <input type="number">,
+ * date picker, etc.) en oscuro igual — `color-scheme: light dark` en :root
+ * le da al navegador el permiso de elegir cualquiera de los dos según el SO,
+ * y elegía oscuro. Acá se lo fija en "light" para que la elección manual
+ * gane, mismo criterio que el bloque de abajo para data-theme="dark".
+ */
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 :root[data-theme="dark"] {
@@ -77,11 +117,15 @@
   --chart-3: #199e70;
   --chart-4: #c98500;
   --chart-5: #d55181;
+  --chart-6: #4cbb5c;
   --chart-7: #9085e9;
   --chart-8: #e66767;
 
-  --color-brand-soft: rgba(25, 158, 112, 0.2);
   --color-good: #0ca30c;
+  --color-brand: #5cb8ff;
+  --color-brand-soft: color-mix(in srgb, #5cb8ff 18%, transparent);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+  --shadow-nav: 0 -2px 14px -4px rgba(0, 0, 0, 0.55);
 }
 
 @theme inline {
@@ -94,4 +138,140 @@
 body {
   background: var(--color-bg);
   color: var(--color-text);
+}
+
+/*
+ * Profundidad: toda tarjeta/superficie de la app usa la combinación
+ * "rounded-2xl border" (tarjetas, formularios, listas, switchers) — en vez
+ * de repetir un box-shadow en cada uno de esos ~20 lugares, se engancha acá
+ * una sola vez sobre esa combinación de clases ya existente.
+ */
+.rounded-2xl.border {
+  box-shadow: var(--shadow-card);
+}
+
+/*
+ * Micro-interacciones: feedback al tocar/pasar el mouse sobre cualquier
+ * botón o link de la app, sin repetirlo control por control. El hover con
+ * brillo queda solo para mouse (pointer: fine) — en touch, :hover puede
+ * quedar "pegado" después de tocar, así que ahí alcanza con el :active.
+ */
+button:not(:disabled),
+a {
+  transition:
+    transform 100ms ease,
+    filter 150ms ease,
+    opacity 150ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  button:not(:disabled):hover,
+  a:hover {
+    filter: brightness(1.08);
+  }
+}
+button:not(:disabled):active,
+a:active {
+  transform: scale(0.97);
+  filter: brightness(0.94);
+}
+
+/*
+ * Filas de chips con scroll horizontal (categorías, filtros, tipo de
+ * activo). Con mouse (desktop) queda una barra finita y del color de la
+ * app en vez de la barra nativa gruesa — hace falta que se vea para poder
+ * arrastrarla, sin mouse no hay otra forma de moverla con el cursor. Con
+ * dedo (celu) se esconde del todo: ahí se desliza con el dedo y una barra
+ * visible solo estorba.
+ */
+.chip-scroll {
+  scrollbar-width: thin;
+  /* Sin esto, algunos navegadores (Chrome/Edge nuevos) ignoran el color de
+     ::-webkit-scrollbar-thumb de más abajo apenas se define scrollbar-width,
+     y muestran el gris oscuro del sistema — se veía oscuro incluso en modo
+     claro. scrollbar-color es la propiedad estándar equivalente (thumb, track). */
+  scrollbar-color: var(--color-border) transparent;
+  /* Difuminado solo del lado derecho: insinúa que hay más chips para ese
+     costado sin necesitar la barra de scroll (que en touch está oculta). No
+     se difumina el izquierdo — la fila arranca siempre sin scrollear, así
+     que ahí nunca hay nada oculto, y difuminarlo igual solo recortaba el
+     primer chip (más notorio todavía en uno seleccionado, con fondo sólido). */
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
+  mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
+}
+.chip-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.chip-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chip-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+@media (pointer: coarse) {
+  .chip-scroll {
+    scrollbar-width: none;
+  }
+  .chip-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Usado por el puntito del SyncStatusChip mientras hay cambios pendientes de subir. */
+@keyframes gastosapp-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/*
+ * Animaciones de entrada de los gráficos (Dashboard, Mensual, Inversiones):
+ * las barras "crecen" desde abajo y las líneas se "dibujan" en vez de
+ * aparecer de golpe. Es solo la primera vez que se pintan — no vuelven a
+ * jugar en cada re-render porque el navegador no repite un `animation` si
+ * el elemento no se desmonta y remonta.
+ */
+@keyframes gastosapp-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.chart-bar-grow {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: gastosapp-bar-grow 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gastosapp-line-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.chart-line-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: gastosapp-line-draw 700ms ease-out forwards;
+}
+
+@keyframes gastosapp-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.chart-fade-in {
+  animation: gastosapp-fade-in 600ms ease-out both;
 }

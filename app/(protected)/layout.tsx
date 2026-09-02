@@ -1,7 +1,9 @@
 import { AppProviders } from "@/app/providers/AppProviders";
 import { RequireAuth } from "@/app/providers/RequireAuth";
 import { EnsureDefaultCategories } from "@/app/providers/EnsureDefaultCategories";
+import { AppLockGate } from "@/components/applock/AppLockGate";
 import { BottomNav } from "@/components/BottomNav";
+import { SyncStatusChip } from "@/components/shared/SyncStatusChip";
 
 // Mismo motivo que en app/login/layout.tsx: estas pantallas dependen de la
 // sesión del usuario, no tiene sentido pre-generarlas como HTML estático.
@@ -18,11 +20,14 @@ export default function ProtectedLayout({ children }: LayoutProps<"/">) {
   return (
     <AppProviders>
       <RequireAuth>
-        <div className="mx-auto flex min-h-screen w-full max-w-97.5 flex-1 flex-col">
-          <EnsureDefaultCategories />
-          <div className="flex-1">{children}</div>
-          <BottomNav />
-        </div>
+        <AppLockGate>
+          <div className="mx-auto flex min-h-screen w-full max-w-97.5 flex-1 flex-col">
+            <EnsureDefaultCategories />
+            <SyncStatusChip />
+            <div className="flex-1">{children}</div>
+            <BottomNav />
+          </div>
+        </AppLockGate>
       </RequireAuth>
     </AppProviders>
   );

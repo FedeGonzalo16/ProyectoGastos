@@ -25,8 +25,20 @@ export interface QueueEntry {
 
 const QUEUE_STORAGE_KEY = "gastosapp:_syncQueue";
 
+/**
+ * Se dispara cada vez que cambia el tamaño de la cola (se encola algo nuevo,
+ * o se saca algo porque ya se subió). `useSyncStatus` lo escucha para poder
+ * mostrar "Sincronizando..." al instante, sin depender de un sondeo.
+ */
+export const QUEUE_CHANGED_EVENT = "gastosapp:queue-changed";
+
 function isBrowser(): boolean {
   return typeof window !== "undefined";
+}
+
+function notifyQueueChanged(): void {
+  if (!isBrowser()) return;
+  window.dispatchEvent(new Event(QUEUE_CHANGED_EVENT));
 }
 
 /** Lee todas las operaciones pendientes, en el orden en que se encolaron. */
@@ -57,10 +69,12 @@ export function enqueue(entry: Omit<QueueEntry, "queueEntryId" | "queuedAt">): v
     queuedAt: new Date().toISOString(),
   });
   writeQueue(entries);
+  notifyQueueChanged();
 }
 
 /** Quita una operación de la cola una vez que se confirmó que llegó a Supabase. */
 export function removeFromQueue(queueEntryId: string): void {
   const remaining = readQueue().filter((entry) => entry.queueEntryId !== queueEntryId);
   writeQueue(remaining);
+  notifyQueueChanged();
 }

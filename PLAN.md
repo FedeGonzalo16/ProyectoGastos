@@ -120,25 +120,29 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
 
 ## Páginas (Next.js App Router)
 
-- `/login` — Supabase auth
-- `/` — Dashboard: selector de período (mes actual, últimos 6/12 meses, rango custom) que
-  filtra todos los gráficos de la página; **comparativa Ingresos vs Gastos vs
-  Inversión** (barras agrupadas o líneas, una serie por concepto, por mes) como gráfico
-  principal; torta de gastos del mes por categoría; torta de ingresos por categoría
-- `/gastos` — alta rápida de gasto diario (monto, categoría, fecha, descripción) + listado
-  filtrable por rango de fechas/categoría
-- `/mensual?mes=YYYY-MM` — selector de mes, ingresos del mes (categorizados) vs gastos
-  fijos + variables (de `expenses`), balance (ingresos − gastos), torta de gastos por
-  categoría, torta de ingresos por categoría, y barra comparativa contra meses anteriores
-- `/inversiones` — alta de inversión (fecha, tipo de activo, **nombre/ticker propio**,
-  monto, moneda, tipo de cambio), tabla de totales por activo (agrupado por
-  asset_name) + total general en USD, torta por tipo de activo, línea de evolución de
-  rendimiento %, filtrable por período
+- `/login` — Supabase auth (incluye "olvidé mi contraseña")
+- `/reset-password` — donde cae el link del mail de recuperación, para elegir contraseña nueva
+- `/` — Dashboard: selector de período (mes actual, últimos 3/6/12 meses) que filtra
+  todos los gráficos de la página; **comparativa Ingresos vs Gastos vs Inversión**
+  (barras agrupadas, una serie por concepto, por mes) como gráfico principal; torta de
+  gastos del mes por categoría; torta de ingresos por categoría
+- `/gastos` — alta/edición/borrado de gasto diario (monto, categoría, fecha,
+  descripción) + listado filtrable
+- `/mensual?mes=YYYY-MM` — selector de mes, ingresos del mes (categorizados, con
+  alta/edición/borrado individual) vs gastos fijos + variables (de `expenses`), balance,
+  progreso de presupuestos por categoría, torta de gastos por categoría, torta de
+  ingresos por categoría, y barra comparativa contra meses anteriores
+- `/inversiones` — alta/edición/borrado de inversión (fecha, tipo de activo,
+  **nombre/ticker propio**, monto, moneda, tipo de cambio), cotización USD/ARS del día
+  (solo para ver el total también en pesos), meta de inversión (monto objetivo y/o
+  aporte mensual, con barra de progreso), tabla de totales por activo, torta por tipo de
+  activo, línea de evolución de rendimiento % (ponderado por monto)
 - `/gastos-fijos` (linkeado desde Mensual) — **CRUD de plantillas de gastos fijos**
   (alta, edición de monto/categoría/día, desactivar)
-- `/configuracion` — ajustes generales de la app: apariencia (claro/oscuro/sistema) y
-  cerrar sesión; no administra gastos fijos ni categorías, esos son parte del flujo de
-  cada módulo, no un ajuste general
+- `/presupuestos` (linkeado desde Mensual) — tope mensual opcional por categoría de gasto
+- `/configuracion` — ajustes generales de la app: apariencia (claro/oscuro) y cerrar
+  sesión; no administra gastos fijos, presupuestos ni categorías, esos son parte del
+  flujo de cada módulo, no un ajuste general
 
 ## Pasos de implementación
 
@@ -171,10 +175,23 @@ se puede cambiar la estrategia de guardado sin tocar las pantallas):
 10. Instrucciones de deploy: variables de entorno en Vercel
     (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) y conexión del repo.
     *(pendiente — requiere que el usuario cree su proyecto de Supabase primero)*
+11. ✅ Editar/borrar gastos, ingresos e inversiones (antes solo se podía crear) — botones
+    en `ExpenseList`, `IncomeList` (nueva, en Mensual) e `InvestmentPositionRow`; los tres
+    formularios de alta ahora también editan.
+12. ✅ Presupuesto mensual opcional por categoría de gasto: `/presupuestos` +
+    barras de progreso en Mensual (`category_budgets`, tabla nueva).
+13. ✅ "Olvidé mi contraseña" en `/login` + `/reset-password`.
+14. ✅ Inversiones: total también en pesos (cotización manual, solo local — ver
+    `lib/currentExchangeRate.ts`), rendimiento ponderado por monto (no promedio simple),
+    y meta de inversión (monto objetivo y/o aporte mensual — `investment_goals`, tabla
+    nueva).
 
 **Para que la app funcione de verdad** (más allá de compilar) todavía falta que el
 usuario cree su proyecto en Supabase, pegue `supabase/schema.sql` en el SQL Editor, y
-copie `.env.local.example` a `.env.local` con la URL y la anon key de ese proyecto.
+copie `.env.local.example` a `.env.local` con la URL y la anon key de ese proyecto. Para
+que "olvidé mi contraseña" funcione, además hay que agregar la URL de
+`/reset-password` (ej. `http://localhost:3000/reset-password`, y más adelante la de
+producción) en Supabase → Authentication → URL Configuration → Redirect URLs.
 
 ## Verificación
 

@@ -25,7 +25,10 @@ export function DonutLegend({ items, formatValue }: DonutLegendProps) {
           : `${percentage.toFixed(0)}%`;
 
         return (
-          <div key={item.label} className="flex items-center justify-between text-xs">
+          // Va con el índice además del label: dos categorías distintas
+          // pueden mostrar el mismo nombre (ej. una borrada y otra creada
+          // de nuevo con igual nombre) — el label solo no alcanza como key.
+          <div key={`${item.label}-${index}`} className="flex items-center justify-between text-xs">
             <span className="flex items-center gap-1.5" style={{ color: "var(--color-text-secondary)" }}>
               <span
                 className="inline-block h-2 w-2 rounded-full"

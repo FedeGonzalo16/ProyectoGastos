@@ -41,3 +41,59 @@ export function pointsToAreaPath(points: LinePoint[], baselineY: number): string
   const last = points[points.length - 1];
   return `M${first.x.toFixed(1)},${baselineY} ${line.replace(/^M/, "L")} L${last.x.toFixed(1)},${baselineY} Z`;
 }
+
+/**
+ * Igual que `buildLinePoints`, pero para varias series que comparten el
+ * mismo eje Y (ej. el rendimiento de cada activo por separado) — el mínimo y
+ * el máximo se calculan sobre TODAS las series juntas, así quedan
+ * comparables entre sí en la misma escala en vez de que cada una estire su
+ * propio rango. Un valor `null` (ej. un activo que todavía no existía en esa
+ * fecha) se preserva como hueco en vez de forzarlo a cero.
+ */
+export function buildMultiLinePoints(
+  seriesValues: (number | null)[][],
+  width: number,
+  height: number,
+  paddingX = 12,
+  paddingY = 16
+): (LinePoint | null)[][] {
+  const allDefinedValues = seriesValues.flat().filter((value): value is number => value !== null);
+  const pointCount = Math.max(0, ...seriesValues.map((values) => values.length));
+  const stepX = pointCount > 1 ? (width - paddingX * 2) / (pointCount - 1) : 0;
+
+  if (allDefinedValues.length === 0) {
+    return seriesValues.map((values) => values.map(() => null));
+  }
+
+  const min = Math.min(...allDefinedValues);
+  const max = Math.max(...allDefinedValues);
+  const range = max - min || 1; // evita dividir por cero cuando todos los valores son iguales
+
+  return seriesValues.map((values) =>
+    values.map((value, index) =>
+      value === null
+        ? null
+        : { x: paddingX + index * stepX, y: paddingY + (height - paddingY * 2) * (1 - (value - min) / range) }
+    )
+  );
+}
+
+/** Igual que `pointsToLinePath`, pero cortando la línea en cada hueco (`null`) en vez de conectarla por encima. */
+export function pointsToMultiSegmentPath(points: (LinePoint | null)[]): string {
+  const segments: string[] = [];
+  let currentSegment: LinePoint[] = [];
+
+  for (const point of points) {
+    if (point === null) {
+      if (currentSegment.length > 0) {
+        segments.push(pointsToLinePath(currentSegment));
+        currentSegment = [];
+      }
+    } else {
+      currentSegment.push(point);
+    }
+  }
+  if (currentSegment.length > 0) segments.push(pointsToLinePath(currentSegment));
+
+  return segments.join(" ");
+}

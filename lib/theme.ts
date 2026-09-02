@@ -45,6 +45,19 @@ export function setStoredTheme(theme: ThemePreference): void {
 }
 
 /**
+ * El tema efectivamente en pantalla ahora mismo: si hay una preferencia
+ * explícita (claro/oscuro) es esa; si todavía sigue "system" (nunca se
+ * eligió una a mano), se resuelve contra `prefers-color-scheme` — así el
+ * switcher (que solo ofrece Claro/Oscuro) puede marcar cuál está activo
+ * incluso antes de que el usuario haya tocado algo.
+ */
+export function resolveEffectiveTheme(preference: ThemePreference): "light" | "dark" {
+  if (preference !== "system") return preference;
+  if (!isBrowser()) return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+/**
  * Script mínimo que se inyecta en el `<head>` (ver app/layout.tsx) y corre
  * ANTES de que React hidrate la página: sin esto, se vería un flash del
  * tema equivocado (el de `prefers-color-scheme`) durante un instante cada

@@ -34,12 +34,31 @@ export function LineChart({ periodLabels, values, height = 140, colorVar = "var(
 
       {points.length > 0 && (
         <>
-          <path d={pointsToAreaPath(points, height)} fill={`url(#${GRADIENT_ID})`} />
-          <path d={pointsToLinePath(points)} fill="none" stroke={colorVar} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" />
+          <path d={pointsToAreaPath(points, height)} fill={`url(#${GRADIENT_ID})`} className="chart-fade-in" />
+          <path
+            d={pointsToLinePath(points)}
+            pathLength={1}
+            fill="none"
+            stroke={colorVar}
+            strokeWidth={2.2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="chart-line-draw"
+          />
           {points.map((point, index) => {
             const isLast = index === points.length - 1;
             return isLast ? (
-              <circle key={index} cx={point.x} cy={point.y} r={4} fill="var(--color-card)" stroke={colorVar} strokeWidth={2.4} />
+              <circle
+                key={index}
+                cx={point.x}
+                cy={point.y}
+                r={4}
+                fill="var(--color-card)"
+                stroke={colorVar}
+                strokeWidth={2.4}
+                className="chart-fade-in"
+                style={{ animationDelay: "550ms" }}
+              />
             ) : (
               <circle key={index} cx={point.x} cy={point.y} r={3} fill={colorVar} />
             );

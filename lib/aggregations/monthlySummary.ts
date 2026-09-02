@@ -1,4 +1,4 @@
-import type { Category } from "@/lib/types";
+import type { Category, Expense } from "@/lib/types";
 import type { DonutChartItem } from "@/components/charts/DonutChart";
 import { buildColorIndexById } from "@/lib/charts/categoricalColor";
 import { isDateInMonth, type YearMonth } from "@/lib/dateRange";
@@ -23,6 +23,17 @@ export function filterByMonth<T extends DatedAmount>(records: T[], yearMonth: Ye
 /** Suma el campo `amount` de una lista de gastos/ingresos. */
 export function sumAmounts(records: DatedAmount[]): number {
   return records.reduce((total, record) => total + record.amount, 0);
+}
+
+/**
+ * Total con tarjeta de crédito por mes — incluye las cuotas futuras que ya
+ * están cargadas (ver `lib/repository/planInstallments.ts`), así el
+ * Dashboard puede mostrar cuánto ya está comprometido para los próximos
+ * meses sin ninguna lógica extra: las filas ya existen, esto solo las suma.
+ */
+export function creditCardAmountsByMonth(expenses: Expense[], months: YearMonth[]): number[] {
+  const creditExpenses = expenses.filter((expense) => expense.payment_method === "credito");
+  return sumPerMonth(creditExpenses, months);
 }
 
 /** Suma por mes, para armar la serie de un gráfico de barras/líneas. */

@@ -4,9 +4,12 @@ import { useMemo } from "react";
 import { useAuth } from "@/app/providers/AuthProvider";
 import {
   createCategoriesRepository,
+  createCategoryBudgetsRepository,
   createExpensesRepository,
   createFixedExpensesRepository,
+  createFixedIncomesRepository,
   createIncomesRepository,
+  createInvestmentGoalsRepository,
   createInvestmentValuationsRepository,
   createInvestmentsRepository,
 } from "@/lib/repository/entities";
@@ -33,8 +36,11 @@ export function useRepositories() {
       fixedExpenses: createFixedExpensesRepository(getUserId),
       expenses: createExpensesRepository(getUserId),
       incomes: createIncomesRepository(getUserId),
+      fixedIncomes: createFixedIncomesRepository(getUserId),
       investments: createInvestmentsRepository(getUserId),
       investmentValuations: createInvestmentValuationsRepository(getUserId),
+      categoryBudgets: createCategoryBudgetsRepository(getUserId),
+      investmentGoals: createInvestmentGoalsRepository(getUserId),
     }),
     // Se recrean si cambia el usuario (ej. logout + login con otra cuenta).
     // eslint-disable-next-line react-hooks/exhaustive-deps

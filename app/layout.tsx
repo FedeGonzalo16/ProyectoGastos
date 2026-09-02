@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   title: "gastos",
   description: "Gastos diarios, resumen mensual e inversiones, todo en un solo lugar.",
   manifest: "/manifest.json",
+  // El PNG a sangre (sin bordes redondeados propios) para que iOS le aplique
+  // su propio recorte de esquinas al agregarla a la pantalla de inicio — sin
+  // esto, Safari genera uno automático a partir de una captura de la página,
+  // que no se ve tan prolijo como un ícono real.
+  icons: {
+    apple: "/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

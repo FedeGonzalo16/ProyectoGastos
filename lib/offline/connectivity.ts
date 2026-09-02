@@ -24,3 +24,11 @@ export function subscribeToOnline(onOnline: () => void): () => void {
   window.addEventListener("online", onOnline);
   return () => window.removeEventListener("online", onOnline);
 }
+
+/** Igual que `subscribeToOnline`, pero para cuando se pierde la conexión. */
+export function subscribeToOffline(onOffline: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+
+  window.addEventListener("offline", onOffline);
+  return () => window.removeEventListener("offline", onOffline);
+}
