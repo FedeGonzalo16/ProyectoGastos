@@ -36,6 +36,9 @@ export default function LoginPage() {
   const [mode, setMode] = useState<AuthMode>("sign-in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Solo se pide/usa en el registro — confirma que no haya un typo en la
+  // contraseña antes de mandarla (ahí no hay forma de "verla" para revisarla).
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pendingConfirmation, setPendingConfirmation] = useState<PendingConfirmation | null>(null);
@@ -59,6 +62,12 @@ export default function LoginPage() {
     }
 
     if (mode === "sign-up") {
+      if (password !== confirmPassword) {
+        setIsSubmitting(false);
+        setErrorMessage("Las contraseñas no coinciden.");
+        return;
+      }
+
       const { data, error } = await supabase.auth.signUp({ email, password });
       setIsSubmitting(false);
       if (error) {
@@ -88,6 +97,7 @@ export default function LoginPage() {
     setMode(next);
     setErrorMessage(null);
     setPendingConfirmation(null);
+    setConfirmPassword("");
   }
 
   return (
@@ -166,6 +176,21 @@ export default function LoginPage() {
                     minLength={6}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
+                    style={{ borderColor: "var(--color-border)", color: "var(--color-text)", background: "transparent" }}
+                  />
+                </label>
+              )}
+
+              {mode === "sign-up" && (
+                <label className="mt-3 block text-xs" style={{ color: "var(--color-text-secondary)" }}>
+                  Repetir contraseña
+                  <input
+                    type="password"
+                    required
+                    minLength={6}
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
                     className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
                     style={{ borderColor: "var(--color-border)", color: "var(--color-text)", background: "transparent" }}
                   />

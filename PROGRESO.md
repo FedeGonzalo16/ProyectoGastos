@@ -16,7 +16,8 @@ desde iPhone vía Safari, instalable como PWA), pero funciona igual en desktop.
 - **Supabase** (Postgres + Auth), plan free
 - **Modo offline-first**: copia local en `localStorage` + cola de sincronización +
   motor de sync que sube/baja cambios cuando hay conexión (`lib/offline/`)
-- **PWA básica**: `manifest.json` + ícono + meta tags de iOS
+- **PWA básica**: `manifest.json` + ícono + meta tags de iOS — pasos de instalación
+  (iPhone/Android/compu) en [`INSTALACION.md`](INSTALACION.md)
 - Paleta de colores y mockups aprobados en `design/` (validados con la skill de
   dataviz para que las categorías de los gráficos se distingan bien, sin neón)
 
