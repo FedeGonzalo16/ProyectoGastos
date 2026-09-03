@@ -176,6 +176,23 @@ a:active {
 }
 
 /*
+ * Foco visible para inputs/textareas — no existía en ningún lado (los campos
+ * solo tienen `outline-none` + un borde fijo, sin ninguna señal de "este es
+ * el que tiene el foco"). `!important` hace falta porque cada input fija su
+ * propio `borderColor` con un style inline (más específico que esta clase),
+ * y acá sí necesita ganar. Se ignora en touch (`pointer: coarse`, ver el
+ * mismo criterio que el hover de arriba) — ahí no hay foco por teclado.
+ */
+@media (hover: hover) and (pointer: fine) {
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    border-color: var(--color-brand) !important;
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+  }
+}
+
+/*
  * Filas de chips con scroll horizontal (categorías, filtros, tipo de
  * activo). Con mouse (desktop) queda una barra finita y del color de la
  * app en vez de la barra nativa gruesa — hace falta que se vea para poder
