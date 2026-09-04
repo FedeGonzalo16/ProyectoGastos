@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { CheckIcon } from "@/components/shared/icons";
+import { PasswordField } from "@/components/shared/PasswordField";
 
 type AuthMode = "sign-in" | "sign-up" | "forgot-password";
 
@@ -168,33 +169,16 @@ export default function LoginPage() {
               </label>
 
               {mode !== "forgot-password" && (
-                <label className="mt-3 block text-xs" style={{ color: "var(--color-text-secondary)" }}>
-                  Contraseña
-                  <input
-                    type="password"
-                    required
-                    minLength={6}
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
-                    style={{ borderColor: "var(--color-border)", color: "var(--color-text)", background: "transparent" }}
-                  />
-                </label>
+                <PasswordField label="Contraseña" value={password} onChange={setPassword} labelClassName="mt-3 block text-xs" />
               )}
 
               {mode === "sign-up" && (
-                <label className="mt-3 block text-xs" style={{ color: "var(--color-text-secondary)" }}>
-                  Repetir contraseña
-                  <input
-                    type="password"
-                    required
-                    minLength={6}
-                    value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
-                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
-                    style={{ borderColor: "var(--color-border)", color: "var(--color-text)", background: "transparent" }}
-                  />
-                </label>
+                <PasswordField
+                  label="Repetir contraseña"
+                  value={confirmPassword}
+                  onChange={setConfirmPassword}
+                  labelClassName="mt-3 block text-xs"
+                />
               )}
 
               {mode === "sign-up" && (

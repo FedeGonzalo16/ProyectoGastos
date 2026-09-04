@@ -141,3 +141,33 @@ export function DownloadIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function EyeIcon({ className }: IconProps) {
+  return (
+    <svg width={SIZE} height={SIZE} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+export function EyeOffIcon({ className }: IconProps) {
+  return (
+    <svg width={SIZE} height={SIZE} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M9.9 4.24A10.6 10.6 0 0 1 12 4c6.4 0 10 7 10 7a17.6 17.6 0 0 1-3.1 4.2M6.5 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7a9.9 9.9 0 0 0 4.3-.96M9.5 9.5a3 3 0 0 0 4.2 4.2"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M2 2l20 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}

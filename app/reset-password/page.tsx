@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers/AuthProvider";
+import { PasswordField } from "@/components/shared/PasswordField";
 
 /**
  * Pantalla a la que llega el link del mail de "olvidé mi contraseña".
@@ -45,18 +46,7 @@ export default function ResetPasswordPage() {
           Elegí una contraseña nueva
         </h1>
 
-        <label className="mt-5 block text-xs" style={{ color: "var(--color-text-secondary)" }}>
-          Contraseña nueva
-          <input
-            type="password"
-            required
-            minLength={6}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
-            style={{ borderColor: "var(--color-border)", color: "var(--color-text)", background: "transparent" }}
-          />
-        </label>
+        <PasswordField label="Contraseña nueva" value={password} onChange={setPassword} labelClassName="mt-5 block text-xs" />
 
         {errorMessage && (
           <p className="mt-3 text-xs" style={{ color: "var(--chart-8)" }}>

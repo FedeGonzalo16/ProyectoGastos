@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/app/providers/AuthProvider";
 import { CheckIcon, LockIcon } from "@/components/shared/icons";
+import { PasswordField } from "@/components/shared/PasswordField";
 
 /**
  * Cambiar la contraseña estando ya logueado — distinto del flujo de "olvidé
@@ -53,31 +54,14 @@ export function ChangePasswordForm() {
         Cambiar contraseña
       </p>
 
-      <label className="mt-3 block text-[10.5px]" style={{ color: "var(--color-text-secondary)" }}>
-        Contraseña nueva
-        <input
-          type="password"
-          required
-          minLength={6}
-          value={newPassword}
-          onChange={(event) => setNewPassword(event.target.value)}
-          className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
-          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
-        />
-      </label>
+      <PasswordField label="Contraseña nueva" value={newPassword} onChange={setNewPassword} labelClassName="mt-3 block text-[10.5px]" />
 
-      <label className="mt-2.5 block text-[10.5px]" style={{ color: "var(--color-text-secondary)" }}>
-        Repetir contraseña
-        <input
-          type="password"
-          required
-          minLength={6}
-          value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none"
-          style={{ borderColor: "var(--color-border)", background: "transparent", color: "var(--color-text)" }}
-        />
-      </label>
+      <PasswordField
+        label="Repetir contraseña"
+        value={confirmPassword}
+        onChange={setConfirmPassword}
+        labelClassName="mt-2.5 block text-[10.5px]"
+      />
 
       {errorMessage && (
         <p className="mt-2.5 text-[11.5px]" style={{ color: "var(--chart-8)" }}>
